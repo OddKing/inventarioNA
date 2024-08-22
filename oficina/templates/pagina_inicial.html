@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Página Inicial</title>
+</head>
+<body>
+    <h1>Página Inicial</h1>
+
+    <h2>Insumos con Cantidad 0</h2>
+    <ul>
+        {% for insumo in insumos %}
+            <li>{{ insumo.nombre }} - Cantidad: {{ insumo.cantidad }}</li>
+        {% empty %}
+            <li>No hay insumos con cantidad 0.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Entregas Sin Confirmar</h2>
+    <ul>
+        {% for entrega in entregas %}
+            <li>{{ entrega.insumo.nombre }} - Entregado a: {{ entrega.usuario.username }} el {{ entrega.fecha_entrega }}</li>
+        {% empty %}
+            <li>No hay entregas sin confirmar.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

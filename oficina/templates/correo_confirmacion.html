@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirmación de Entrega</title>
+</head>
+<body>
+    <p>Hola {{ usuario.username }},</p>
+    <p>Se ha entregado el insumo "{{ entrega.insumo.nombre }}" a tu nombre. Por favor, confirma la recepción haciendo clic en el siguiente enlace:</p>
+    <p><a href="{{ confirmacion_url }}">Confirmar Recepción</a></p>
+    <p>Gracias,</p>
+    <p>El equipo</p>
+</body>
+</html>

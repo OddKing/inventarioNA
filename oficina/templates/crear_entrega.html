@@ -1,0 +1,16 @@
+<!-- my_app/templates/crear_entrega.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crear Entrega</title>
+</head>
+<body>
+    <h1>Crear Entrega</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar Entrega</button>
+    </form>
+    <a href="{% url 'pagina_inicial' %}">Volver a la página inicial</a>
+</body>
+</html>
