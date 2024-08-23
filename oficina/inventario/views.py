@@ -71,7 +71,7 @@ def login_view(request):
         if user is not None:
             if user.usuariopermiso.puede_iniciar_sesion:
                 login(request, user)
-                return redirect('pagina_inicial')
+                return redirect('crear_entrega')
             else:
                 messages.error(request, 'No tienes permiso para acceder a esta plataforma.')
         else:
