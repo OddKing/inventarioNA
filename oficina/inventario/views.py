@@ -9,6 +9,7 @@ from django.contrib import messages
 from .models import UsuarioPermiso
 from django.contrib.auth.decorators import login_required
 from .forms import EntregaForm
+from .correo import Correo
 
 def pagina_inicial(request):
     insumos = Insumo.objects.filter(cantidad=0)  # Insumos con cantidad 0
@@ -18,6 +19,7 @@ def pagina_inicial(request):
 
 
 def crear_entrega(request, insumo_id):
+    notificador=Correo('correo.na@gmail.com','uoeltvyzagdnobkp','smtp.gmail.com',587)
     insumo = Insumo.objects.get(id=insumo_id)
     entrega = Entrega.objects.create(insumo=insumo, usuario=request.user)
     
@@ -29,12 +31,12 @@ def crear_entrega(request, insumo_id):
         'confirmacion_url': entrega.get_confirmacion_url(),
     })
     plain_message = strip_tags(html_message)
-    from_email = 'your_email@example.com'
+    from_email = 'correo.na@gmail.com'
     to_email = request.user.email
     
-    send_mail(subject, plain_message, from_email, [to_email], html_message=html_message)
-    
-    return render(request, 'entrega_creada.html', {'entrega': entrega})
+    # to, subject, message, name_from, html=False, documents=None, cc=[], bcc=[], firma_img=None
+    result = notificador.enviar([to_email],subject, plain_message, from_email)
+    return render(request, 'pagina_inicial.html', {'entrega': entrega})
 
 
 

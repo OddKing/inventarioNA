@@ -137,12 +137,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # my_project/settings.py
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'correo.nameaction.com'  # Cambia esto por tu servidor SMTP
-EMAIL_PORT = 25
-EMAIL_USE_TLS = False  # Usar False si no estás usando TLS
+EMAIL_HOST = 'smtp.gmail.com'  # Cambia esto por tu servidor SMTP
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True  # Usar False si no estás usando TLS
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'carlos.campana@nameaction.com'
-EMAIL_HOST_PASSWORD = '1020'
+EMAIL_HOST_USER = 'correo.na@gmail.com'
+EMAIL_HOST_PASSWORD = 'uoeltvyzagdnobkp'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 LOGGING = {
@@ -160,3 +160,5 @@ LOGGING = {
         'level': 'DEBUG',
     },
 }
+
+
