@@ -1,6 +1,4 @@
-
 from .models import Insumo, Entrega
-from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.contrib.auth import authenticate, login
@@ -10,6 +8,7 @@ from .models import UsuarioPermiso
 from django.contrib.auth.decorators import login_required
 from .forms import EntregaForm
 from .correo import Correo
+from django.contrib import messages
 
 def pagina_inicial(request):
     insumos = Insumo.objects.filter(cantidad=0)  # Insumos con cantidad 0
@@ -32,12 +31,17 @@ def crear_entrega(request, insumo_id):
     })
     plain_message = strip_tags(html_message)
     from_email = 'correo.na@gmail.com'
-    to_email = request.user.email
+    to_email = 'carlos.campana@nameaction.com'
     
     # to, subject, message, name_from, html=False, documents=None, cc=[], bcc=[], firma_img=None
-    result = notificador.enviar([to_email],subject, plain_message, from_email)
+    if notificador.enviar([to_email], subject, plain_message, from_email):
+        messages.success(request, 'Correo enviado exitosamente.')
+    else:
+        messages.error(request, 'Hubo un problema al enviar el correo.')
+
     notificador.cerrar()
     return render(request, 'pagina_inicial.html', {'entrega': entrega})
+
 
 
 

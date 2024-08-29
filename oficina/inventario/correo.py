@@ -80,7 +80,7 @@ class Correo():
                     self.mail_server.login(self.correo, self.clave)
                     conectado = True
                     #print('login horrible')
-        print('Conectado:',conectado)
+        #print('Conectado:',conectado)
 
     def enviar(self, to, subject, message, name_from, html=False, documents=None, cc=[], bcc=[], firma_img=None):
         if html:

@@ -23,5 +23,18 @@
             <li>No hay entregas sin confirmar.</li>
         {% endfor %}
     </ul>
+
+    <!-- Mostrar mensajes -->
+    {% if messages %}
+        <h2>Mensajes</h2>
+        <ul>
+            {% for message in messages %}
+                <li class="{{ message.tags }}">
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
 </body>
 </html>

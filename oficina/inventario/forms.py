@@ -1,4 +1,4 @@
-# my_app/forms.py
+# inventario/forms.py
 from django import forms
 from .models import Entrega
 from django.contrib.auth.models import User
