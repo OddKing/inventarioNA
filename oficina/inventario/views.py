@@ -36,6 +36,7 @@ def crear_entrega(request, insumo_id):
     
     # to, subject, message, name_from, html=False, documents=None, cc=[], bcc=[], firma_img=None
     result = notificador.enviar([to_email],subject, plain_message, from_email)
+    notificador.cerrar()
     return render(request, 'pagina_inicial.html', {'entrega': entrega})
 
 
