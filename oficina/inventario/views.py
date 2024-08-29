@@ -1,4 +1,4 @@
-from .models import Insumo, Entrega
+from .models import Insumo, Entrega #agregar punto
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.contrib.auth import authenticate, login
@@ -36,9 +36,10 @@ def crear_entrega(request, insumo_id):
     # to, subject, message, name_from, html=False, documents=None, cc=[], bcc=[], firma_img=None
     if notificador.enviar([to_email], subject, plain_message, from_email):
         messages.success(request, 'Correo enviado exitosamente.')
+        print('true')
     else:
         messages.error(request, 'Hubo un problema al enviar el correo.')
-
+        print('false')
     notificador.cerrar()
     return render(request, 'pagina_inicial.html', {'entrega': entrega})
 
