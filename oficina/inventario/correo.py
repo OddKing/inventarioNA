@@ -10,10 +10,10 @@ from email.mime.application import MIMEApplication
 from email import encoders
 from os.path import basename
 from datetime import datetime, time
-import icalendar
+import icalendar # type: ignore
 import uuid
-import pytz
-import unidecode
+import pytz # type: ignore
+import unidecode # type: ignore
 
 
 class Correo():

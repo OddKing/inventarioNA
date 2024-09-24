@@ -1,50 +1,20 @@
 from .models import Insumo, Entrega #agregar punto
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect,get_object_or_404
-from django.contrib import messages
+from django.template.loader import render_to_string # type: ignore
+from django.utils.html import strip_tags # type: ignore
+from django.contrib.auth import authenticate, login # type: ignore
+from django.shortcuts import render, redirect,get_object_or_404 # type: ignore
+from django.contrib import messages # type: ignore
 from .models import UsuarioPermiso
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required # type: ignore
 from .forms import EntregaForm
 from .correo import Correo
-from django.contrib import messages
+from django.utils.crypto import get_random_string 
+from django.contrib import messages # type: ignore
 
 def pagina_inicial(request):
     insumos = Insumo.objects.filter(cantidad=0)  # Insumos con cantidad 0
     entregas = Entrega.objects.filter(confirmado=False)  # Entregas no confirmadas
     return render(request, 'pagina_inicial.html', {'insumos': insumos, 'entregas': entregas})
-
-
-
-def crear_entrega(request, insumo_id):
-    notificador=Correo('correo.na@gmail.com','uoeltvyzagdnobkp','smtp.gmail.com',587)
-    insumo = Insumo.objects.get(id=insumo_id)
-    entrega = Entrega.objects.create(insumo=insumo, usuario=request.user)
-    
-    # Enviar correo de confirmación
-    subject = 'Confirma la recepción del insumo'
-    html_message = render_to_string('correo_confirmacion.html', {
-        'usuario': request.user,
-        'entrega': entrega,
-        'confirmacion_url': entrega.get_confirmacion_url(),
-    })
-    plain_message = strip_tags(html_message)
-    from_email = 'correo.na@gmail.com'
-    to_email = 'carlos.campana@nameaction.com'
-    
-    # to, subject, message, name_from, html=False, documents=None, cc=[], bcc=[], firma_img=None
-    if notificador.enviar([to_email], subject, plain_message, from_email):
-        messages.success(request, 'Correo enviado exitosamente.')
-        print('true')
-    else:
-        messages.error(request, 'Hubo un problema al enviar el correo.')
-        print('false')
-    notificador.cerrar()
-    return render(request, 'pagina_inicial.html', {'entrega': entrega})
-
-
-
 
 
 
@@ -90,7 +60,7 @@ def login_view(request):
 
 
 @login_required
-def crear_entrega(request):
+def crear_entrega(request, insumo_id=None):
     if not hasattr(request.user, 'usuariopermiso') or not request.user.usuariopermiso.puede_iniciar_sesion:
         return redirect('login')  # Redirigir a la página de inicio de sesión si el usuario no está autorizado
 
@@ -98,9 +68,35 @@ def crear_entrega(request):
         form = EntregaForm(request.POST)
         if form.is_valid():
             entrega = form.save(commit=False)
-            entrega.usuario = form.cleaned_data['usuario']  # Asegurarse de que el usuario seleccionado se guarde
+            entrega.usuario = request.user  # Guardar el usuario actual
+
+            # Si se proporciona un ID de insumo, obtener el insumo correspondiente
+            if insumo_id:
+                insumo = Insumo.objects.get(id=insumo_id)
+                entrega.insumo = insumo
+        
             entrega.save()
-            return redirect('pagina_inicial')
+            
+            # Enviar correo de confirmación
+            subject = 'Confirma la recepción del insumo'
+            html_message = render_to_string('correo_confirmacion.html', {
+                'usuario': request.user,
+                'entrega': entrega,
+                'confirmacion_url': entrega.get_confirmacion_url(),
+            })
+            plain_message = strip_tags(html_message)
+            from_email = 'correo.na@gmail.com'
+            to_email = 'carlos.campana@nameaction.com'
+            
+            notificador = Correo('correo.na@gmail.com', 'uoeltvyzagdnobkp', 'smtp.gmail.com', 587)
+            if notificador.enviar([to_email], subject, plain_message, from_email):
+                messages.success(request, 'Correo enviado exitosamente.')
+            else:
+                messages.error(request, 'Hubo un problema al enviar el correo.')
+            notificador.cerrar()
+
+            return redirect('pagina_inicial')  # Redirigir a la página inicial después de guardar
     else:
         form = EntregaForm()
+
     return render(request, 'crear_entrega.html', {'form': form})
