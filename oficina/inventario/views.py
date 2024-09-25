@@ -17,6 +17,7 @@ def pagina_inicial(request):
 
 
 
+
 def confirmar_entrega(request, token):
     entrega = get_object_or_404(Entrega, token_confirmacion=token)
 
@@ -26,16 +27,21 @@ def confirmar_entrega(request, token):
         if insumo.cantidad >= entrega.cantidad_entregada:
             insumo.cantidad -= entrega.cantidad_entregada
             insumo.save()
-            
+
             # Marcar la entrega como confirmada
             entrega.confirmado = True
             entrega.save()
-        else:
-            # Aquí puedes manejar el caso en que la cantidad del insumo es insuficiente.
-            # Por ejemplo, enviar una notificación o manejar un error.
-            pass
 
-    return redirect('pagina_inicial')  # Redirige a la página inicial o a una página de éxito
+            # Enviar mensaje de éxito al usuario
+            messages.success(request, 'La entrega ha sido confirmada exitosamente.')
+        else:
+            # Enviar mensaje de error si la cantidad del insumo es insuficiente
+            messages.error(request, 'No hay suficiente cantidad disponible para confirmar la entrega.')
+    else:
+        # Entrega ya confirmada
+        messages.info(request, 'Esta entrega ya ha sido confirmada anteriormente.')
+
+    return redirect('pagina_inicial')
 
 
 
@@ -88,7 +94,7 @@ def crear_entrega(request, insumo_id=None):
             to_email = 'carlos.campana@nameaction.com'
             
             notificador = Correo('correo.na@gmail.com', 'uoeltvyzagdnobkp', 'smtp.gmail.com', 587)
-            if notificador.enviar([to_email], subject, html_message, from_email):
+            if notificador.enviar([to_email], subject, plain_message, from_email):
                 messages.success(request, 'Correo enviado exitosamente.')
             else:
                 messages.error(request, 'Hubo un problema al enviar el correo.')
