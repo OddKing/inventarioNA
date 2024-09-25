@@ -8,7 +8,6 @@ from .models import UsuarioPermiso
 from django.contrib.auth.decorators import login_required # type: ignore
 from .forms import EntregaForm
 from .correo import Correo
-from django.utils.crypto import get_random_string 
 from django.contrib import messages # type: ignore
 
 def pagina_inicial(request):
@@ -89,7 +88,7 @@ def crear_entrega(request, insumo_id=None):
             to_email = 'carlos.campana@nameaction.com'
             
             notificador = Correo('correo.na@gmail.com', 'uoeltvyzagdnobkp', 'smtp.gmail.com', 587)
-            if notificador.enviar([to_email], subject, plain_message, from_email):
+            if notificador.enviar([to_email], subject, html_message, from_email):
                 messages.success(request, 'Correo enviado exitosamente.')
             else:
                 messages.error(request, 'Hubo un problema al enviar el correo.')
