@@ -64,7 +64,7 @@ def login_view(request):
 
 
 
-@login_required
+@login_required(login_url='/login')
 def crear_entrega(request, insumo_id=None):
     if not hasattr(request.user, 'usuariopermiso') or not request.user.usuariopermiso.puede_iniciar_sesion:
         return redirect('login')  # Redirigir a la página de inicio de sesión si el usuario no está autorizado
