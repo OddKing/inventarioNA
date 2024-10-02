@@ -1,25 +1,26 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Página Inicial{% endblock %}
 
 {% block content %}
-    <h1>Página Inicial</h1>
-
-    <h2>Insumos con Cantidad 0</h2>
+    <br>
+    <br>
+    <h2 class="text-primary">Insumos con Cantidad en 0</h2>
     <ul>
         {% for insumo in insumos %}
-            <li>{{ insumo.nombre }} - Cantidad: {{ insumo.cantidad }}</li>
+            <li class="text-primary">{{ insumo.nombre }} - Cantidad: {{ insumo.cantidad }}</li>
         {% empty %}
-            <li>No hay insumos con cantidad 0.</li>
+            <li class="text-primary">No hay insumos con cantidad 0.</li>
         {% endfor %}
     </ul>
 
-    <h2>Entregas Sin Confirmar</h2>
+    <h2 class="text-primary">Entregas Sin Confirmar</h2>
     <ul>
         {% for entrega in entregas %}
-            <li>{{ entrega.insumo.nombre }} - Entregado a: {{ entrega.usuario.username }} el {{ entrega.fecha_entrega }}</li>
+            <li class="text-primary">{{ entrega.insumo.nombre }} - Entregado a: {{ entrega.usuario.username }} el {{ entrega.fecha_entrega }}</li>
         {% empty %}
-            <li>No hay entregas sin confirmar.</li>
+            <li class="text-primary">No hay entregas sin confirmar.</li>
         {% endfor %}
     </ul>
 
