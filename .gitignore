@@ -1,2 +1,3 @@
 # Archivos de log
 *.log
+*.pyc
