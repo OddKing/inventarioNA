@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required # type: ignore
 from .forms import EntregaForm
 from .correo import Correo
 from django.contrib import messages # type: ignore
+from django.contrib.auth.models import User
 
 def pagina_inicial(request):
     insumos = Insumo.objects.filter(cantidad=0)  # Insumos con cantidad 0
@@ -73,7 +74,8 @@ def crear_entrega(request, insumo_id=None):
         form = EntregaForm(request.POST)
         if form.is_valid():
             entrega = form.save(commit=False)
-            entrega.usuario = request.user  # Guardar el usuario actual
+            entrega.usuario= form.cleaned_data['usuario']
+            # entrega.usuario = request.user  # Guardar el usuario actual
 
             # Si se proporciona un ID de insumo, obtener el insumo correspondiente
             if insumo_id:
@@ -91,7 +93,9 @@ def crear_entrega(request, insumo_id=None):
             })
             plain_message = strip_tags(html_message)
             from_email = 'correo.na@gmail.com'
-            to_email = 'carlos.campana@nameaction.com'
+            #to_email = 'carlos.campana@nameaction.com'
+            to_email=entrega.usuario.email   
+            print(to_email)
             
             notificador = Correo('correo.na@gmail.com', 'uoeltvyzagdnobkp', 'smtp.gmail.com', 587)
             if notificador.enviar([to_email], subject, plain_message, from_email):

@@ -1491,3 +1491,106 @@ Not Found: /favicon.ico
 Not Found: /service.html
 Not Found: /blog.html
 Not Found: /contact.html
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+E:\proyectos\inventarioNA\oficina\inventario\views.py changed, reloading.
+Watching for file changes with StatReloader
+E:\proyectos\inventarioNA\oficina\inventario\views.py changed, reloading.
+Watching for file changes with StatReloader
+E:\proyectos\inventarioNA\oficina\inventario\views.py changed, reloading.
+Watching for file changes with StatReloader
+E:\proyectos\inventarioNA\oficina\inventario\views.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /crear-entrega/
+Traceback (most recent call last):
+  File "C:\Python312\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\proyectos\inventarioNA\oficina\inventario\views.py", line 101, in crear_entrega
+    messages.success(request, 'Correo enviado exitosamente.'+to_email+' '+request.user+ ' '+entrega)
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+  File "C:\Python312\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\utils\functional.py", line 437, in __radd__
+    return other + self
+           ~~~~~~^~~~~~
+TypeError: can only concatenate str (not "User") to str
+E:\proyectos\inventarioNA\oficina\inventario\views.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /crear-entrega/
+Traceback (most recent call last):
+  File "C:\Python312\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\proyectos\inventarioNA\oficina\inventario\views.py", line 101, in crear_entrega
+    messages.success(request, 'Correo enviado exitosamente.'+to_email+' '+entrega)
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+TypeError: can only concatenate str (not "Entrega") to str
+E:\proyectos\inventarioNA\oficina\inventario\views.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /crear-entrega/
+Traceback (most recent call last):
+  File "C:\Python312\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\proyectos\inventarioNA\oficina\inventario\views.py", line 101, in crear_entrega
+    messages.success(request, 'Correo enviado exitosamente.'+to_email+' '+entrega.usuario)
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+  File "C:\Python312\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\utils\functional.py", line 437, in __radd__
+    return other + self
+           ~~~~~~^~~~~~
+TypeError: can only concatenate str (not "User") to str
+Internal Server Error: /crear-entrega/
+Traceback (most recent call last):
+  File "C:\Python312\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\proyectos\inventarioNA\oficina\inventario\views.py", line 101, in crear_entrega
+    messages.success(request, 'Correo enviado exitosamente.'+to_email+' '+entrega.usuario)
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+  File "C:\Python312\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\utils\functional.py", line 437, in __radd__
+    return other + self
+           ~~~~~~^~~~~~
+TypeError: can only concatenate str (not "User") to str
+E:\proyectos\inventarioNA\oficina\inventario\views.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+E:\proyectos\inventarioNA\oficina\inventario\views.py changed, reloading.
+Watching for file changes with StatReloader
+E:\proyectos\inventarioNA\oficina\inventario\views.py changed, reloading.
+Watching for file changes with StatReloader
+E:\proyectos\inventarioNA\oficina\inventario\views.py changed, reloading.
+Watching for file changes with StatReloader
+E:\proyectos\inventarioNA\oficina\inventario\views.py changed, reloading.
+Watching for file changes with StatReloader
