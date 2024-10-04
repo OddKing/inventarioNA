@@ -1,11 +1,12 @@
 <!-- my_app/templates/login.html -->
-{% extends 'baseLogin.html' %}
+{% extends 'base.html' %}
 {% load static %}
-{% block title %}Iniciar Sesión{% endblock %}
-
-{% block content %}
-    <br>
-    <br>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Iniciar Sesión</title>
+</head>
+<body>
     <h1>Iniciar Sesión</h1>
     <form method="post">
         {% csrf_token %}
@@ -24,5 +25,5 @@
             {% endfor %}
         </ul>
     {% endif %}
-{% endblock %}
-
+</body>
+</html>
