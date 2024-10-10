@@ -18,7 +18,7 @@
                     <tr>
                         <td style="padding: 20px; font-size: 16px; color: #333333;">
                             <p>Hola <strong>{{ usuario.username }}</strong>,</p>
-                            <p>Se ha entregado el insumo <strong>"{{ entrega.insumo.nombre }}"</strong> a tu nombre.</p>
+                            <p>Se ha entregado el insumo <strong>"{{ entrega.insumo.nombre }}"</strong> a tu nombre. La siguiente cantidad {{ entrega.insumo.cantidad }}</p>
                             <p>Por favor, confirma la recepción haciendo clic en el siguiente enlace:</p>
                             <p style="text-align: center; margin: 30px 0;">
                                 <a href="{{ confirmacion_url }}" style="background-color: #007BFF; color: #ffffff; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">Confirmar Recepción</a>

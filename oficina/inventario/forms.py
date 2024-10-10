@@ -14,11 +14,6 @@ class EntregaForm(forms.ModelForm):
             'usuario': forms.Select(attrs={'class': 'form-control'}),
         }
 
-    insumo=forms.ModelChoiceField(
-        queryset=Insumo.objects.all().exclude(cantidad=0),
-        empty_label="----------------------",
-        widget=forms.Select(attrs={'class': 'form-control'})
-    )
     usuario = forms.ModelChoiceField(
         queryset=User.objects.all().exclude(pk=1),
         empty_label="Seleccione un usuario",
@@ -27,6 +22,8 @@ class EntregaForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['insumo'].queryset = Insumo.objects.filter(cantidad__gt=0)
+
         for field_name, field in self.fields.items():
             # Personalizar la clase de las etiquetas
             field.label = field.label
