@@ -111,3 +111,39 @@ def crear_entrega(request, insumo_id=None):
         form = EntregaForm()
 
     return render(request, 'crear_entrega.html', {'form': form})
+
+@login_required(login_url='/login')
+def listar_entregas(request):
+    # Obtener todos los usuarios para el dropdown
+    usuarios = User.objects.all()
+    usuario_seleccionado = request.GET.get('usuario')
+    
+    # Filtrar las entregas por el usuario seleccionado, si existe
+    if usuario_seleccionado:
+        entregas = Entrega.objects.filter(usuario__id=usuario_seleccionado, cantidad_entregada__gt=0,confirmado=1)
+    else:
+        entregas = Entrega.objects.none()  # No mostrar entregas si no hay un usuario seleccionado
+
+    return render(request, 'listar_entregas.html', {
+        'entregas': entregas,
+        'usuarios': usuarios,
+        'usuario_seleccionado': usuario_seleccionado
+    })
+
+@login_required(login_url='/login')
+def registrar_devolucion(request, entrega_id):
+    entrega = get_object_or_404(Entrega, id=entrega_id, usuario=request.user)
+    insumo = entrega.insumo
+    if request.method == 'POST':
+        cantidad = int(request.POST.get('cantidad'))
+        if 0 < cantidad <= entrega.cantidad_entregada:
+            # Actualizar la cantidad del insumo y la cantidad de la entrega
+            insumo.cantidad += cantidad
+            insumo.save()
+            entrega.cantidad_entregada-= cantidad
+            entrega.save()
+            messages.success(request, 'Devolución registrada exitosamente.')
+        else:
+            messages.error(request, 'La cantidad debe ser positiva y no superar la cantidad entregada.')
+        return redirect('listar_entregas')
+    return render(request, 'devolucion_form.html', {'entrega': entrega, 'insumo': insumo})

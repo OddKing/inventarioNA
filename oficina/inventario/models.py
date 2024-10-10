@@ -35,3 +35,13 @@ class UsuarioPermiso(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+
+class Devolucion(models.Model):
+    insumo = models.ForeignKey(Insumo, on_delete=models.CASCADE, related_name='devoluciones')
+    cantidad = models.PositiveIntegerField()
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    fecha_devolucion = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.cantidad} de {self.insumo.nombre} devuelto por {self.usuario.username}"

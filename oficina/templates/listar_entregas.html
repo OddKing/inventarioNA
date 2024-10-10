@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Devoluciones{% endblock %}
+
+{% block content %}
+<br><br><br>
+<h2>Listado de Entregas</h2>
+
+<!-- Dropdown para seleccionar el usuario -->
+<form method="get">
+    <label for="usuario">Selecciona un usuario:</label>
+    <select name="usuario" id="usuario" onchange="this.form.submit()">
+        <option value="">-- Seleccionar usuario --</option>
+        {% for usuario in usuarios %}
+            <option value="{{ usuario.id }}" {% if usuario_seleccionado == usuario.id|stringformat:"s" %}selected{% endif %}>
+                {{ usuario.username }}
+            </option>
+        {% endfor %}
+    </select>
+</form>
+
+<!-- Lista de entregas del usuario seleccionado -->
+<ul>
+    {% if usuario_seleccionado %}
+        {% for entrega in entregas %}
+            <li>
+                {{ entrega.cantidad_entregada }} de {{ entrega.insumo.nombre }} - {{ entrega.fecha_entrega }}
+                <a class=" btn btn-info"href="{% url 'registrar_devolucion' entrega.id %}">Devolver</a>
+            </li>
+        {% empty %}
+            <li>No hay entregas registradas para este usuario.</li>
+        {% endfor %}
+    {% else %}
+        <li>Por favor, selecciona un usuario para ver sus entregas.</li>
+    {% endif %}
+</ul>
+
+{% endblock %}

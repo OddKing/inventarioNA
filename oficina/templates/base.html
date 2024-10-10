@@ -42,9 +42,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="/" class="nav-item nav-link active">Home</a>
-                        <a href="crear-entrega/" class="nav-item nav-link">Hacer Entrega</a>
-                        <a href="#" class="nav-item nav-link">Devolucion</a>
+                        <a href="{% url 'pagina_inicial' %}" class="nav-item nav-link active  {% if request.path == '/' %}active{% endif %}">Home</a>
+                        <a href="{% url 'crear_entrega' %}" class="nav-item nav-link {% if request.path == '/crear-entrega/' %}active{% endif %}">Hacer Entrega</a>
+                        <a href="{% url 'listar_entregas' %}" class="nav-item nav-link {% if request.path == '/entregas/' %}active{% endif %}">Devolucion</a>
                         <a href="#" class="nav-item nav-link">Cargar productos</a>
                         <a href="#" class="nav-item nav-link">Contact</a>
                     </div>

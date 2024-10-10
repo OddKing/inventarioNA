@@ -34,5 +34,7 @@ urlpatterns = [
     path('', views.pagina_inicial, name='pagina_inicial'),
     path('crear-entrega/', views.crear_entrega, name='crear_entrega'),
     path('confirmar-entrega/<uuid:token>/', views.confirmar_entrega, name='confirmar_entrega'),
+    path('entregas/', views.listar_entregas, name='listar_entregas'),
+    path('devolucion/<int:entrega_id>/', views.registrar_devolucion, name='registrar_devolucion'),
 ]
 
