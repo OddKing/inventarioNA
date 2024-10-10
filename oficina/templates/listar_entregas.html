@@ -5,12 +5,12 @@
 
 {% block content %}
 <br><br><br>
-<h2>Listado de Entregas</h2>
+<h2 class="text-primary">Listado de Entregas</h2>
 
 <!-- Dropdown para seleccionar el usuario -->
 <form method="get">
-    <label for="usuario">Selecciona un usuario:</label>
-    <select name="usuario" id="usuario" onchange="this.form.submit()">
+    <label for="usuario" class="text-primary">Selecciona un usuario:</label>
+    <select class="form-select" name="usuario" id="usuario" onchange="this.form.submit()">
         <option value="">-- Seleccionar usuario --</option>
         {% for usuario in usuarios %}
             <option value="{{ usuario.id }}" {% if usuario_seleccionado == usuario.id|stringformat:"s" %}selected{% endif %}>
@@ -29,10 +29,10 @@
                 <a class=" btn btn-info"href="{% url 'registrar_devolucion' entrega.id %}">Devolver</a>
             </li>
         {% empty %}
-            <li>No hay entregas registradas para este usuario.</li>
+            <li class="text-primary">No hay entregas registradas para este usuario.</li>
         {% endfor %}
     {% else %}
-        <li>Por favor, selecciona un usuario para ver sus entregas.</li>
+        <li class="text-primary">Por favor, selecciona un usuario para ver sus entregas.</li>
     {% endif %}
 </ul>
 

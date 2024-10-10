@@ -1,17 +1,31 @@
-<!-- my_app/templates/crear_entrega.html -->
+<!-- templates/crear_entrega.html -->
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Crear Entrega{% endblock %}
+{% block title %}Hacer Entrega{% endblock %}
 
 {% block content %}
-    <br><br><br>
-    <h1>Crear Entrega</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-success" type="submit">Guardar Entrega</button>
-    </form>
-    <br>
-    <a class="btn btn-info" href="{% url 'pagina_inicial' %}">Volver a la página inicial</a>
+<br><br><br>
+<h2>Hacer una nueva entrega</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label class="text-primary" for="{{ form.insumo.id_for_label }}">{{ form.insumo.label }}</label>
+        {{ form.insumo }}
+    </div>
+    <div class="form-group">
+        <label class="text-primary" for="{{ form.cantidad_entregada.id_for_label }}">{{ form.cantidad_entregada.label }}</label>
+        {{ form.cantidad_entregada }}
+    </div>
+    <div class="form-group">
+        <label class="text-primary" for="{{ form.fecha_entrega.id_for_label }}">{{ form.fecha_entrega.label }}</label>
+        {{ form.fecha_entrega }}
+    </div>
+    <div class="form-group">
+        <label class="text-primary" for="{{ form.usuario.id_for_label }}">{{ form.usuario.label }}</label>
+        {{ form.usuario }}
+    </div>
+    <br><br>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
 {% endblock %}
