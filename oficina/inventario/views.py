@@ -95,8 +95,9 @@ def crear_entrega(request, insumo_id=None):
                     url='http://'+host+entrega.get_confirmacion_url()
                     # Enviar correo de confirmación
                     subject = 'Confirma la recepción del insumo'
+                    print(entrega.usuario)
                     html_message = render_to_string('correo_confirmacion.html', {
-                        'usuario': entrega.usuario.first_name,
+                        'usuario': entrega.usuario,
                         'entrega': entrega,
                         'confirmacion_url': url,
                     })
@@ -155,7 +156,7 @@ def registrar_devolucion(request, entrega_id):
             messages.success(request, 'Devolución registrada exitosamente.')
             subject = 'Informe de la devolucion'
             html_message = render_to_string('correo_devolucion.html', {
-                        'usuario': entrega.usuario.first_name,
+                        'usuario': entrega.usuario,
                         'entrega': entrega,
                     })
             plain_message = strip_tags(html_message)
