@@ -153,6 +153,21 @@ def registrar_devolucion(request, entrega_id):
             entrega.cantidad_entregada-= cantidad
             entrega.save()
             messages.success(request, 'Devolución registrada exitosamente.')
+            subject = 'Informe de la devolucion'
+            html_message = render_to_string('correo_devolucion.html', {
+                        'usuario': entrega.usuario.first_name,
+                        'entrega': entrega,
+                    })
+            plain_message = strip_tags(html_message)
+            from_email = 'correo.na@gmail.com'
+            #to_email = 'carlos.campana@nameaction.com'
+            to_email=entrega.usuario.email
+            notificador = Correo('correo.na@gmail.com', 'uoeltvyzagdnobkp', 'smtp.gmail.com', 587)
+            if notificador.enviar([to_email,'carlos.campana@nameaction.com'], subject, plain_message, from_email):
+                messages.success(request, 'Correo enviado exitosamente.')
+            else:
+                messages.error(request, 'Hubo un problema al enviar el correo.'+' '+host)
+            notificador.cerrar()
         else:
             messages.error(request, 'La cantidad debe ser positiva y no superar la cantidad entregada.')
         return redirect('listar_entregas')
