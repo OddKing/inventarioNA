@@ -193,3 +193,32 @@ def cargar_insumos(request):
         formset = CargarInsumoFormSet(queryset=Insumo.objects.none())
     
     return render(request, 'cargar_insumo.html', {'formset': formset})
+
+@login_required(login_url='/login')
+def reenviar_confirmacion(request, entrega_id):
+    entrega = get_object_or_404(Entrega, id=entrega_id, usuario=request.user)
+
+    # Aquí envías el correo de confirmación nuevamente, como lo hiciste anteriormente
+    # Asumiendo que ya tienes la lógica para enviar el correo de confirmación.
+
+    host = request.META['HTTP_HOST']
+    url = 'http://' + host + entrega.get_confirmacion_url()  # Método para obtener la URL de confirmación
+
+    subject = 'Confirma la recepción del insumo'
+    html_message = render_to_string('correo_confirmacion.html', {
+        'usuario': request.user,
+        'entrega': entrega,
+        'confirmacion_url': url,
+    })
+    plain_message = strip_tags(html_message)
+    from_email = 'correo.na@gmail.com'
+    to_email = entrega.usuario.email
+
+    notificador = Correo('correo.na@gmail.com', 'uoeltvyzagdnobkp', 'smtp.gmail.com', 587)
+    if notificador.enviar([to_email], subject, plain_message, from_email):
+        messages.success(request, 'Correo de confirmación reenviado exitosamente.')
+    else:
+        messages.error(request, 'Hubo un problema al reenviar el correo.')
+
+    notificador.cerrar()
+    return redirect('pagina_inicial')

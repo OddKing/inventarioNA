@@ -14,5 +14,6 @@ urlpatterns = [
     path('devolucion/<int:entrega_id>/', views.registrar_devolucion, name='registrar_devolucion'),
     path('logout/', views.logout_view, name='logout'),
     path('cargar-insumos/', views.cargar_insumos, name='cargar_insumos'),
+    path('reenviar-confirmacion/<int:entrega_id>/', views.reenviar_confirmacion, name='reenviar_confirmacion'),
 ]
 
