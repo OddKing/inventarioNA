@@ -46,7 +46,13 @@
                         <a href="{% url 'crear_entrega' %}" class="nav-item nav-link {% if request.path == '/crear-entrega/' %}active{% endif %}">Hacer Entrega</a>
                         <a href="{% url 'listar_entregas' %}" class="nav-item nav-link {% if request.path == '/entregas/' %}active{% endif %}">Devolucion</a>
                         <a href="#" class="nav-item nav-link">Cargar productos</a>
-                        <a href="#" class="nav-item nav-link">Contact</a>
+                        
+                        {% if user.is_authenticated %}
+                        <span class="nav-item nav-link no-select" >Hola, {{ user.username }}</span>  <!-- Mostrar nombre de usuario -->
+                        <a href="{% url 'logout' %}" class="nav-item nav-link">Cerrar Sesión</a>
+                        {% else %}
+                        <a href="{% url 'login' %}" class="nav-item nav-link">Iniciar Sesión</a>
+                        {% endif %}
                     </div>
                 </div>
             </nav>

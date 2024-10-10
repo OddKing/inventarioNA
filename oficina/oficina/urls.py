@@ -12,6 +12,6 @@ urlpatterns = [
     path('confirmar-entrega/<uuid:token>/', views.confirmar_entrega, name='confirmar_entrega'),
     path('entregas/', views.listar_entregas, name='listar_entregas'),
     path('devolucion/<int:entrega_id>/', views.registrar_devolucion, name='registrar_devolucion'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('logout/', views.logout_view, name='logout'),
 ]
 

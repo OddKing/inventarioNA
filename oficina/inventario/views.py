@@ -1,7 +1,7 @@
 from .models import Insumo, Entrega #agregar punto
 from django.template.loader import render_to_string # type: ignore
 from django.utils.html import strip_tags # type: ignore
-from django.contrib.auth import authenticate, login # type: ignore
+from django.contrib.auth import authenticate, login, logout# type: ignore
 from django.shortcuts import render, redirect,get_object_or_404 # type: ignore
 from django.contrib import messages # type: ignore
 from .models import UsuarioPermiso
@@ -148,3 +148,6 @@ def registrar_devolucion(request, entrega_id):
         return redirect('listar_entregas')
     return render(request, 'devolucion_form.html', {'entrega': entrega, 'insumo': insumo})
 
+def logout_view(request):
+    logout(request)
+    return redirect('pagina_inicial') 
