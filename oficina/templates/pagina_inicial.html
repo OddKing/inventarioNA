@@ -23,7 +23,7 @@
                 <span>
                 {{ entrega.insumo.nombre }} - Entregado a: {{ entrega.usuario.username }} el {{ entrega.fecha_entrega }} cantidad: {{ entrega.cantidad_entregada }}
                 </span>
-                {% if entrega.usuario == request.user %}
+                {% if user.is_authenticated %}
                     <form method="POST" action="{% url 'reenviar_confirmacion' entrega.id %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-warning btn-sm">Reenviar Confirmación</button>

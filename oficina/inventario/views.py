@@ -95,9 +95,9 @@ def crear_entrega(request, insumo_id=None):
                     url='http://'+host+entrega.get_confirmacion_url()
                     # Enviar correo de confirmación
                     subject = 'Confirma la recepción del insumo'
-                    print(entrega.usuario)
+                    print(entrega.usuario.first_name)
                     html_message = render_to_string('correo_confirmacion.html', {
-                        'usuario': entrega.usuario,
+                        'usuario': entrega.usuario.first_name,
                         'entrega': entrega,
                         'confirmacion_url': url,
                     })
@@ -156,7 +156,7 @@ def registrar_devolucion(request, entrega_id):
             messages.success(request, 'Devolución registrada exitosamente.')
             subject = 'Informe de la devolucion'
             html_message = render_to_string('correo_devolucion.html', {
-                        'usuario': entrega.usuario,
+                        'usuario': entrega.usuario.first_name,
                         'entrega': entrega,
                     })
             plain_message = strip_tags(html_message)
@@ -196,7 +196,7 @@ def cargar_insumos(request):
 
 @login_required(login_url='/login')
 def reenviar_confirmacion(request, entrega_id):
-    entrega = get_object_or_404(Entrega, id=entrega_id, usuario=request.user)
+    entrega = get_object_or_404(Entrega, id=entrega_id)
 
     # Aquí envías el correo de confirmación nuevamente, como lo hiciste anteriormente
     # Asumiendo que ya tienes la lógica para enviar el correo de confirmación.
@@ -204,9 +204,9 @@ def reenviar_confirmacion(request, entrega_id):
     host = request.META['HTTP_HOST']
     url = 'http://' + host + entrega.get_confirmacion_url()  # Método para obtener la URL de confirmación
 
-    subject = 'Confirma la recepción del insumo'
+    subject = 'Urgente Confirma la recepción del insumo'
     html_message = render_to_string('correo_confirmacion.html', {
-        'usuario': request.user,
+        'usuario': entrega.usuario.first_name,
         'entrega': entrega,
         'confirmacion_url': url,
     })
