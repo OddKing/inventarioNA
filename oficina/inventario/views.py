@@ -96,7 +96,7 @@ def crear_entrega(request, insumo_id=None):
                     # Enviar correo de confirmación
                     subject = 'Confirma la recepción del insumo'
                     html_message = render_to_string('correo_confirmacion.html', {
-                        'usuario': request.user,
+                        'usuario': entrega.usuario.first_name,
                         'entrega': entrega,
                         'confirmacion_url': url,
                     })
