@@ -21,18 +21,19 @@
 </form>
 
 <!-- Lista de entregas del usuario seleccionado -->
-<ul>
+<br>
+<ul class="list-group list-group-flush">
     {% if usuario_seleccionado %}
         {% for entrega in entregas %}
-            <li>
+            <li class="list-group-item">
                 {{ entrega.cantidad_entregada }} de {{ entrega.insumo.nombre }} - {{ entrega.fecha_entrega }}
                 <a class=" btn btn-info"href="{% url 'registrar_devolucion' entrega.id %}">Devolver</a>
             </li>
         {% empty %}
-            <li class="text-primary">No hay entregas registradas para este usuario.</li>
+            <li class="text-primary list-group-item">No hay entregas registradas para este usuario.</li>
         {% endfor %}
     {% else %}
-        <li class="text-primary">Por favor, selecciona un usuario para ver sus entregas.</li>
+        <li class="text-primary list-group-item">Por favor, selecciona un usuario para ver sus entregas.</li>
     {% endif %}
 </ul>
 
