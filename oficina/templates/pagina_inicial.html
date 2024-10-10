@@ -19,7 +19,7 @@
     <h2 class="text-primary">Entregas Sin Confirmar</h2>
     <ul class="list-group list-group-flush">
         {% for entrega in entregas %}
-            <li class="text-primary list-group-item">{{ entrega.insumo.nombre }} - Entregado a: {{ entrega.usuario.username }} el {{ entrega.fecha_entrega }}</li>
+            <li class="text-primary list-group-item">{{ entrega.insumo.nombre }} - Entregado a: {{ entrega.usuario.username }} el {{ entrega.fecha_entrega }} cantidad: {{entrega.cantidad_entregada}}</li>
         {% empty %}
             <li class="text-primary list-group-item">No hay entregas sin confirmar.</li>
         {% endfor %}

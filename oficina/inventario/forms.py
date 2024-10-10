@@ -1,6 +1,6 @@
 # inventario/forms.py
 from django import forms
-from .models import Entrega
+from .models import Entrega,Insumo
 from django.contrib.auth.models import User
 
 class EntregaForm(forms.ModelForm):
@@ -14,6 +14,11 @@ class EntregaForm(forms.ModelForm):
             'usuario': forms.Select(attrs={'class': 'form-control'}),
         }
 
+    insumo=forms.ModelChoiceField(
+        queryset=Insumo.objects.all().exclude(cantidad=0),
+        empty_label="----------------------",
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
     usuario = forms.ModelChoiceField(
         queryset=User.objects.all().exclude(pk=1),
         empty_label="Seleccione un usuario",

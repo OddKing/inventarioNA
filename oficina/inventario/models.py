@@ -24,7 +24,7 @@ class Entrega(models.Model):
     token_confirmacion = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     def __str__(self):
-        return f"Entrega de {self.insumo.nombre} a {self.usuario.username} el {self.fecha_entrega}"
+        return f"Entrega de {self.insumo.nombre} a {self.usuario.username} el {self.fecha_entrega} cantidad {self.cantidad_entregada}"
 
     def get_confirmacion_url(self):
         return reverse('confirmar_entrega', args=[str(self.token_confirmacion)])
