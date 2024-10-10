@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Cargar Insumos{% endblock %}
+
+{% block content %}
+<br><br><br>
+    <h2 class="text-primary">Cargar Nuevos Insumos</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        <table class="table" id="insumo-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for form in formset %}
+                    <tr class="insumo-form">
+                        <td>{{ form.nombre }}</td>
+                        <td>{{ form.cantidad }}</td>
+                        <td>{{ form.descripcion }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-secondary" id="add-insumo-form">Agregar otro insumo</button>
+        <button type="submit" class="btn btn-primary">Guardar Insumos</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const formCount = document.getElementById('id_form-TOTAL_FORMS');
+            const addInsumoFormButton = document.getElementById('add-insumo-form');
+            const insumoTable = document.getElementById('insumo-table');
+
+            addInsumoFormButton.addEventListener('click', function() {
+                const currentFormCount = parseInt(formCount.value);
+                const newFormIndex = currentFormCount;
+                const newRow = document.querySelector('.insumo-form').cloneNode(true);
+
+                // Update the form's name and id attributes
+                newRow.innerHTML = newRow.innerHTML.replace(/form-\d+-/g, `form-${newFormIndex}-`);
+                insumoTable.querySelector('tbody').appendChild(newRow);
+
+                // Update the form count
+                formCount.value = currentFormCount + 1;
+            });
+        });
+    </script>
+{% endblock %}

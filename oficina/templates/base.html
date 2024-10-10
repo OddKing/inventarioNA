@@ -45,7 +45,7 @@
                         <a href="{% url 'pagina_inicial' %}" class="nav-item nav-link {% if request.path == '/' %}active{% endif %}">Home</a>
                         <a href="{% url 'crear_entrega' %}" class="nav-item nav-link {% if request.path == '/crear-entrega/' %}active{% endif %}">Hacer Entrega</a>
                         <a href="{% url 'listar_entregas' %}" class="nav-item nav-link {% if request.path == '/entregas/' %}active{% endif %}">Devolucion</a>
-                        <a href="#" class="nav-item nav-link">Cargar productos</a>
+                        <a href="{% url 'cargar_insumos' %}" class="nav-item nav-link {% if request.path == '/cargar-insumos/' %}active{% endif %}" >Cargar Insumos</a>
                         
                         {% if user.is_authenticated %}
                         <span class="nav-item nav-link no-select" >Hola, {{ user.username }}</span>  <!-- Mostrar nombre de usuario -->

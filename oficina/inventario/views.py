@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect,get_object_or_404 # type: ignore
 from django.contrib import messages # type: ignore
 from .models import UsuarioPermiso
 from django.contrib.auth.decorators import login_required # type: ignore
-from .forms import EntregaForm
+from .forms import EntregaForm,CargarInsumoFormSet
 from .correo import Correo
 from django.contrib import messages # type: ignore
 from django.contrib.auth.models import User
@@ -166,7 +166,7 @@ def registrar_devolucion(request, entrega_id):
             if notificador.enviar([to_email,'carlos.campana@nameaction.com'], subject, plain_message, from_email):
                 messages.success(request, 'Correo enviado exitosamente.')
             else:
-                messages.error(request, 'Hubo un problema al enviar el correo.'+' '+host)
+                messages.error(request, 'Hubo un problema al enviar el correo.')
             notificador.cerrar()
         else:
             messages.error(request, 'La cantidad debe ser positiva y no superar la cantidad entregada.')
@@ -176,3 +176,19 @@ def registrar_devolucion(request, entrega_id):
 def logout_view(request):
     logout(request)
     return redirect('pagina_inicial') 
+
+
+@login_required(login_url='/login')
+def cargar_insumos(request):
+    if request.method == 'POST':
+        formset = CargarInsumoFormSet(request.POST, queryset=Insumo.objects.none())
+        if formset.is_valid():
+            formset.save()
+            messages.success(request, 'Insumos cargados exitosamente.')
+            return redirect('pagina_inicial')
+        else:
+            messages.error(request, 'Error al cargar los insumos. Revisa los datos.')
+    else:
+        formset = CargarInsumoFormSet(queryset=Insumo.objects.none())
+    
+    return render(request, 'cargar_insumo.html', {'formset': formset})

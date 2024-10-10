@@ -2,6 +2,7 @@
 from django import forms
 from .models import Entrega,Insumo
 from django.contrib.auth.models import User
+from django.forms import modelformset_factory
 
 class EntregaForm(forms.ModelForm):
     class Meta:
@@ -27,3 +28,21 @@ class EntregaForm(forms.ModelForm):
         for field_name, field in self.fields.items():
             # Personalizar la clase de las etiquetas
             field.label = field.label
+
+
+class CargarInsumoForm(forms.ModelForm):
+    class Meta:
+        model = Insumo
+        fields = ['nombre', 'cantidad', 'descripcion']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'cantidad': forms.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+        }
+
+# Crear un formset basado en el formulario de insumo
+CargarInsumoFormSet = modelformset_factory(
+    Insumo, 
+    form=CargarInsumoForm, 
+    extra=3  # Esto indica cuántos formularios adicionales se mostrarán (puedes ajustar el número)
+)
