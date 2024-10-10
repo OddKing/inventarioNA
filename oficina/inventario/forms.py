@@ -11,6 +11,6 @@ class EntregaForm(forms.ModelForm):
     # Opcionalmente, puedes personalizar los widgets
     # para el campo de usuario si lo necesitas
     usuario = forms.ModelChoiceField(
-        queryset=User.objects.all(),  # Asegúrate de importar el modelo User
+        queryset=User.objects.all().exclude(pk=1),  # Asegúrate de importar el modelo User
         empty_label="Seleccione un usuario"
     )

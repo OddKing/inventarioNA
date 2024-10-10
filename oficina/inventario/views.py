@@ -115,7 +115,7 @@ def crear_entrega(request, insumo_id=None):
 @login_required(login_url='/login')
 def listar_entregas(request):
     # Obtener todos los usuarios para el dropdown
-    usuarios = User.objects.all()
+    usuarios = User.objects.all().exclude(pk=1)
     usuario_seleccionado = request.GET.get('usuario')
     
     # Filtrar las entregas por el usuario seleccionado, si existe
