@@ -1,0 +1,28 @@
+{% extends 'baseLogin.html' %}
+{% load static %}
+
+{% block title %}Gracias por Confirmar su pedido{% endblock %}
+
+
+
+{% block content %}
+<br><br><br>
+    <!-- Mostrar mensajes -->
+    {% if messages %}
+        <h2 class="text-primary">Mensajes</h2>
+        <ul >
+            {% for message in messages %}
+                <li class="{{ message.tags }} text-primary">
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <button onclick="cerrarPestana()" class="btn btn-info">Cerrar Pestaña</button>
+
+    <script>
+        function cerrarPestana() {
+            window.close();
+        }
+    </script>
+{% endblock %}

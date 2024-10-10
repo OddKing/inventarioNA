@@ -42,7 +42,7 @@ def confirmar_entrega(request, token):
         # Entrega ya confirmada
         messages.info(request, 'Esta entrega ya ha sido confirmada anteriormente.')
 
-    return redirect('pagina_inicial')
+    return render(request, 'confirmado.html')
 
 
 
@@ -98,7 +98,7 @@ def crear_entrega(request, insumo_id=None):
             from_email = 'correo.na@gmail.com'
             #to_email = 'carlos.campana@nameaction.com'
             to_email=entrega.usuario.email   
-            print(url)         
+            #print(url)         
             notificador = Correo('correo.na@gmail.com', 'uoeltvyzagdnobkp', 'smtp.gmail.com', 587)
             if notificador.enviar([to_email], subject, plain_message, from_email):
                 messages.success(request, 'Correo enviado exitosamente.')
