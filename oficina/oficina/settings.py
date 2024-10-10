@@ -165,3 +165,5 @@ LOGGING = {
 }
 
 
+# settings.py
+LOGOUT_REDIRECT_URL = '/' 
