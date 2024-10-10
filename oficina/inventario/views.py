@@ -147,3 +147,4 @@ def registrar_devolucion(request, entrega_id):
             messages.error(request, 'La cantidad debe ser positiva y no superar la cantidad entregada.')
         return redirect('listar_entregas')
     return render(request, 'devolucion_form.html', {'entrega': entrega, 'insumo': insumo})
+
