@@ -4,46 +4,89 @@
 {% block title %}Página Inicial{% endblock %}
 
 {% block content %}
+<div class="container-fluid">
     <br>
     <br>
     <br>
-    <h2 class="text-primary">Insumos con Cantidad en 0</h2>
-    <ul class="list-group list-group-flush">
-        {% for insumo in insumos %}
-            <li class="text-primary list-group-item">{{ insumo.nombre }} - Cantidad: {{ insumo.cantidad }}</li>
-        {% empty %}
-            <li class="text-primary list-group-item">No hay insumos con cantidad 0.</li>
-        {% endfor %}
-    </ul>
+    <div class="table-responsive ">
+        <h2 class="card-title">Insumos con Cantidad en 0</h2>
+        <table  id="tablaInsumnos0" class="display table table-striped table-hover" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Nombre </th>
+                    <th>Cantidad </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for insumo in insumos %}
+                    <tr>
+                        <td>{{ insumo.nombre }}</td>
+                        <td>{{ insumo.cantidad }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td>No hay insumos con cantidad 0.</td>
+                    </tr>
 
-    <h2 class="text-primary">Entregas Sin Confirmar</h2>
-    <ul class="list-group list-group-flush">
-        {% for entrega in entregas %}
-            <li class="text-primary list-group-item d-flex justify-content-between align-items-center">
-                <span>
-                {{ entrega.insumo.nombre }} - Entregado a: {{ entrega.usuario.username }} el {{ entrega.fecha_entrega }} cantidad: {{ entrega.cantidad_entregada }}
-                </span>
-                {% if user.is_authenticated %}
-                    <form method="POST" action="{% url 'reenviar_confirmacion' entrega.id %}">
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+    <div class="table-responsive">
+        <h2 class="card-title">Entregas Sin Confirmar</h2>
+        <table id="EntregasSinconfirmar" class="display table table-striped table-hover" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Insumo </th>
+                    <th>a quien? </th>
+                    <th>Fecha</th>
+                    <th>cantidad</th>
+                    {% if user.is_authenticated %}
+                        <th>Reenvio</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for entrega in entregas %}
+                <tr>
+                    <td>{{ entrega.insumo.nombre }}</td>
+                    <td>{{ entrega.usuario.username }}</td>
+                    <td>{{ entrega.fecha_entrega }}</td>
+                    <td>{{ entrega.cantidad_entregada }}</td>
+                    {% if user.is_authenticated %}
+                    <td><form method="POST" action="{% url 'reenviar_confirmacion' entrega.id %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-warning btn-sm">Reenviar Confirmación</button>
-                    </form>
-                {% endif %}
-            </li>
-        {% empty %}
-            <li class="text-primary list-group-item">No hay entregas sin confirmar.</li>
-        {% endfor %}
-    </ul>
+                    </form></td>
+                    {% endif %}
+                </tr>
+                {% empty %}
+                <tr>
+                        <td>No hay entregas sin confirmar.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Mostrar mensajes -->
+{% if messages %}
+   <h2>Mensajes</h2>
+   <ul>
+       {% for message in messages %}
+           <li class="{{ message.tags }}">
+               {{ message }}
+           </li>
+       {% endfor %}
+   </ul>
+{% endif %}
+<script>
+    $(document).ready(function() {
+			$('#tablaInsumnos0').DataTable({
+			});
+            $('#EntregasSinconfirmar').DataTable({
 
-    <!-- Mostrar mensajes -->
-    {% if messages %}
-        <h2>Mensajes</h2>
-        <ul>
-            {% for message in messages %}
-                <li class="{{ message.tags }}">
-                    {{ message }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+            });});
+</script>
 {% endblock %}

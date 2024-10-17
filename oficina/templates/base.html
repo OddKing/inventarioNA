@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Gestion Invwentario</title>
+	<title>{% block title %}{% endblock %}</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="{% static 'img/icon.ico' %}" type="image/x-icon"/>
 
@@ -32,7 +32,7 @@
 			<!-- Logo Header -->
 			<div class="logo-header" data-background-color="dark2">
 				
-				<a href="index.html" class="logo">
+				<a href="{% url 'pagina_inicial' %}" class="logo">
 					<img src="{% static 'img/logo.svg' %}" alt="navbar brand" class="navbar-brand">
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,14 +71,21 @@
 										<div class="user-box">
 											<div class="avatar-lg"><img src="{% static 'img/profile.jpg' %}" alt="image profile" class="avatar-img rounded"></div>
 											<div class="u-text">
-												<h4>Hizrian</h4>
-												<p class="text-muted">hello@example.com</p>
+												<h4>
+													{% if user.is_authenticated %}
+													{{ user.first_name }}
+													{% endif %}
+												</h4>
+												<p class="text-muted">
+													{% if user.is_authenticated %}
+													{{ user.email }}
+													{% endif %}</p>
 											</div>
 										</div>
 									</li>
 									<li>
 										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="#">Logout</a>
+										<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
 									</li>
 								</div>
 							</ul>
@@ -88,7 +95,6 @@
 			</nav>
 			<!-- End Navbar -->
 		</div>
-
 		<!-- Sidebar -->
 		<div class="sidebar sidebar-style-2" data-background-color="dark2">
 			<div class="sidebar-wrapper scrollbar scrollbar-inner">
@@ -100,7 +106,9 @@
 						<div class="info">
 							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
 								<span>
-									<!--{user.name}-->
+									{% if user.is_authenticated %}
+										{{ user.first_name }}
+									{% endif %}
 									<span class="user-level">Encargado</span>
 								</span>
 							</a>
@@ -112,7 +120,7 @@
 							<span class="sidebar-mini-icon">
 								<i class="fa fa-ellipsis-h"></i>
 							</span>
-							<h4 class="text-section">Components</h4>
+							<h4 class="text-section">Acciones</h4>
 						</li>
 						
 						<li class="nav-item">
@@ -124,18 +132,18 @@
 							<div class="collapse" id="sidebarLayouts">
 								<ul class="nav nav-collapse">
 									<li>
-										<a href="sidebar-style-1.html">
-											<span class="sub-item">Sidebar Style 1</span>
+										<a href="{% url 'crear_entrega' %}">
+											<span class="sub-item">Crear entrega</span>
 										</a>
 									</li>
 									<li>
-										<a href="overlay-sidebar.html">
-											<span class="sub-item">Overlay Sidebar</span>
+										<a href="{% url 'listar_entregas' %}">
+											<span class="sub-item">Devolucione</span>
 										</a>
 									</li>
 									<li>
-										<a href="compact-sidebar.html">
-											<span class="sub-item">Compact Sidebar</span>
+										<a href="{% url 'cargar_insumos' %}">
+											<span class="sub-item">Cargar Insumos</span>
 										</a>
 									</li>
 									<li>
@@ -143,11 +151,7 @@
 											<span class="sub-item">Static Sidebar</span>
 										</a>
 									</li>
-									<li>
-										<a href="icon-menu.html">
-											<span class="sub-item">Icon Menu</span>
-										</a>
-									</li>
+									
 								</ul>
 							</div>
 						</li>
@@ -160,19 +164,14 @@
 		<div class="main-panel">
 			{% block content %}
 			{% endblock %}
-		<div>
-
-
-
-
-		
+		</div>
 			<footer class="footer">
 				<div class="container-fluid">
 					<nav class="pull-left">
 						<ul class="nav">
 							<li class="nav-item">
 								<a class="nav-link" href="https://www.themekita.com">
-									ThemeKita
+									Papiones del Rack
 								</a>
 							</li>
 							<li class="nav-item">
@@ -188,7 +187,7 @@
 						</ul>
 					</nav>
 					<div class="copyright ml-auto">
-						2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a>
+						2024, made with <i class="fa fa-heart heart text-danger"></i> by <a href="#">Los Papiones del Rack</a>
 					</div>				
 				</div>
 			</footer>
@@ -231,10 +230,7 @@
 
 	<!-- Atlantis JS -->
 	<script src="{% static 'js/atlantis.min.js' %} "></script>
-
-	<!-- Atlantis DEMO methods, don't include it in your project! -->
-	<script src="{% static 'js/setting-demo.js' %}"></script>
-	<script src="{% static 'js/demo.js' %} "></script>
+	
 	<script>
 		$('#lineChart').sparkline([102,109,120,99,110,105,115], {
 			type: 'line',
