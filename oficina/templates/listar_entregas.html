@@ -4,12 +4,13 @@
 {% block title %}Devoluciones{% endblock %}
 
 {% block content %}
+<div class="container-fluid">
 <br><br><br>
 <h2 class="text-primary">Listado de Entregas</h2>
 
 <!-- Dropdown para seleccionar el usuario -->
 <form method="get">
-    <label for="usuario" class="text-primary">Selecciona un usuario:</label>
+    <label for="usuario" class="text-primary">Selecciona un usuario:   </label>
     <select class="form-select" name="usuario" id="usuario" onchange="this.form.submit()">
         <option value="">-- Seleccionar usuario --</option>
         {% for usuario in usuarios %}
@@ -36,5 +37,5 @@
         <li class="text-primary list-group-item">Por favor, selecciona un usuario para ver sus entregas.</li>
     {% endif %}
 </ul>
-
+</div>
 {% endblock %}

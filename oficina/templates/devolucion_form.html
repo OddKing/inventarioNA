@@ -4,6 +4,7 @@
 {% block title %}Devoluciones formulario{% endblock %}
 
 {% block content %}
+<div class="container-fluid">
 <br><br><br>
 <h2 class="text-primary">Devolución de {{ insumo.nombre }}</h2>
 <p class="text-primary">Entrega original: {{ entrega.cantidad_entregada }} unidades</p>
@@ -14,4 +15,5 @@
     <br>
     <button type="submit" class="btn btn-info">Registrar Devolución</button>
 </form>
+</div>
 {% endblock %}
