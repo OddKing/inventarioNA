@@ -12,7 +12,7 @@
 	<script>
 		WebFont.load({
 			google: {"families":["Lato:300,400,700,900"]},
-			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['../assets/css/fonts.min.css']},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ["{% static 'css/fonts.min.css' %}"]},
 			active: function() {
 				sessionStorage.fonts = true;
 			}
@@ -52,7 +52,7 @@
 				
 				<div class="container-fluid">
 					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-						
+						{% if user.is_authenticated %}
 						<li class="nav-item dropdown hidden-caret">
 							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
 								<div class="avatar-sm">
@@ -60,20 +60,20 @@
 								</div>
 							</a>
 							<ul class="dropdown-menu dropdown-user animated fadeIn">
+								
 								<div class="dropdown-user-scroll scrollbar-outer">
 									<li>
 										<div class="user-box">
 											<div class="avatar-lg"><img src="{% static 'img/profile.jpg' %}" alt="image profile" class="avatar-img rounded"></div>
 											<div class="u-text">
 												<h4>
-													{% if user.is_authenticated %}
+													
 													{{ user.first_name }}
-													{% endif %}
+													
 												</h4>
 												<p class="text-muted">
-													{% if user.is_authenticated %}
 													{{ user.email }}
-													{% endif %}</p>
+													</p>
 											</div>
 										</div>
 									</li>
@@ -82,6 +82,9 @@
 										<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
 									</li>
 								</div>
+								{% else %}
+									<a href="{% url 'login' %}" class="nav-item nav-link btn">Iniciar Sesión</a>
+								{% endif %}
 							</ul>
 						</li>
 					</ul>
@@ -94,20 +97,24 @@
 			<div class="sidebar-wrapper scrollbar scrollbar-inner">
 				<div class="sidebar-content">
 					<div class="user">
+						{% if user.is_authenticated %}
 						<div class="avatar-sm float-left mr-2">
 							<img src="{% static 'img/profile.jpg' %}" alt="..." class="avatar-img rounded-circle">
 						</div>
 						<div class="info">
 							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
 								<span>
-									{% if user.is_authenticated %}
+									
 										{{ user.first_name }}
-									{% endif %}
+									
 									<span class="user-level">Encargado</span>
 								</span>
 							</a>
 							<div class="clearfix"></div>
 						</div>
+						{% else %}
+						<a href="{% url 'login' %}" class="nav-item nav-link btn">Iniciar Sesión</a>
+						{% endif %}
 					</div>
 					<ul class="nav nav-primary">
 						<li class="nav-section">
