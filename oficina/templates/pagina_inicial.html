@@ -72,21 +72,17 @@
 </div>
 <!-- Mostrar mensajes -->
 {% if messages %}
-   <h2>Mensajes</h2>
-   <ul>
-       {% for message in messages %}
-           <li class="{{ message.tags }}">
-               {{ message }}
-           </li>
-       {% endfor %}
-   </ul>
+{% for message in messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
 {% endif %}
 <script>
     $(document).ready(function() {
-			$('#tablaInsumnos0').DataTable({
-			});
-            $('#EntregasSinconfirmar').DataTable({
-
-            });});
+        $('#tablaInsumnos0').DataTable();
+        $('#EntregasSinconfirmar').DataTable();
+    });
 </script>
 {% endblock %}

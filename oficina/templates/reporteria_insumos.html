@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Reportería de Insumos{% endblock %}
+
+{% block content %}
+<br><br><br><br><br>
+<div class="container-fluid">
+    <br>
+    <h2 class="card-title">Reportería de Insumos en Existencia</h2>
+    <div class="table-responsive">
+        <table id="tablaInsumos" class="display table table-striped table-hover" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for insumo in insumos %}
+                    <tr>
+                        <td>{{ insumo.nombre }}</td>
+                        <td>{{ insumo.cantidad }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4" align="center">No hay insumos en existencia.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Inicializar DataTable
+    $(document).ready(function() {
+        $('#tablaInsumos').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+            }
+        });
+    });
+</script>
+{% endblock %}

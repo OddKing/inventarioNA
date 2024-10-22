@@ -222,3 +222,9 @@ def reenviar_confirmacion(request, entrega_id):
 
     notificador.cerrar()
     return redirect('pagina_inicial')
+
+
+def reporteria_insumos(request):
+    # Filtra los insumos que tienen una cantidad mayor a cero
+    insumos = Insumo.objects.filter(cantidad__gt=0)
+    return render(request, 'reporteria_insumos.html', {'insumos': insumos})
