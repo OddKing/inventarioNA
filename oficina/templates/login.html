@@ -1,10 +1,11 @@
 <!-- my_app/templates/login.html -->
-{% extends 'baseLogin.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block title %}Iniciar Sesión{% endblock %}
 
 {% block content %}
-    <br>
+    <div class="container-fluid">
+    <br><br><br>
     <br>
     <h1>Iniciar Sesión</h1>
     <form method="post">
@@ -25,5 +26,6 @@
             {% endfor %}
         </ul>
     {% endif %}
+</div>
 {% endblock %}
 
