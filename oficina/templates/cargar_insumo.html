@@ -4,6 +4,11 @@
 
 {% block content %}
 <div class="container-fluid">
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+{% endif %}
 <br><br><br>
     <h2 class="text-white">Cargar Nuevos Insumos</h2>
     <form method="post">
