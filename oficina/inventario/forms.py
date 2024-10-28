@@ -36,7 +36,7 @@ class CargarInsumoForm(forms.ModelForm):
         fields = ['nombre', 'cantidad', 'descripcion']
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-            'cantidad': forms.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
+            'cantidad': forms.NumberInput(attrs={'class': 'form-control', 'min': '1'}),
             'descripcion': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
 

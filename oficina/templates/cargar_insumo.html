@@ -5,16 +5,17 @@
 {% block content %}
 <div class="container-fluid">
 <br><br><br>
-    <h2 class="text-primary">Cargar Nuevos Insumos</h2>
+    <h2 class="text-white">Cargar Nuevos Insumos</h2>
     <form method="post">
         {% csrf_token %}
         {{ formset.management_form }}
-        <table class="table" id="insumo-table">
+        <div class="table-responsive">
+        <table class="table " id="insumo-table">
             <thead>
                 <tr>
-                    <th class="text-primary">Nombre</th>
-                    <th class="text-primary">Cantidad</th>
-                    <th class="text-primary">Descripción</th>
+                    <th >Nombre</th>
+                    <th >Cantidad</th>
+                    <th >Descripción</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                 {% endfor %}
             </tbody>
         </table>
+        </div>
         <button type="button" class="btn btn-secondary" id="add-insumo-form">Agregar otro insumo</button>
         <button type="submit" class="btn btn-primary">Guardar Insumos</button>
     </form>
