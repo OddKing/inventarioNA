@@ -63,7 +63,11 @@
                 </tr>
                 {% empty %}
                 <tr>
+                    {% if user.is_authenticated %}
+                        <td colspan="5" align="center">No hay entregas sin confirmar.</td>
+                    {% else %}
                         <td colspan="4" align="center">No hay entregas sin confirmar.</td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
