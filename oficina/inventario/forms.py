@@ -3,6 +3,7 @@ from django import forms
 from .models import Entrega,Insumo
 from django.contrib.auth.models import User
 from django.forms import modelformset_factory
+from django.core.exceptions import ValidationError
 
 class EntregaForm(forms.ModelForm):
     class Meta:
@@ -39,6 +40,11 @@ class CargarInsumoForm(forms.ModelForm):
             'cantidad': forms.NumberInput(attrs={'class': 'form-control', 'min': '1'}),
             'descripcion': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
+    def clean_cantidad(self):
+        cantidad = self.cleaned_data.get('cantidad')
+        if cantidad is None or cantidad < 1:
+            raise ValidationError('La cantidad debe ser al menos 1.')
+        return cantidad
 
 # Crear un formset basado en el formulario de insumo
 CargarInsumoFormSet = modelformset_factory(

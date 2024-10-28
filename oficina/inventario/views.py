@@ -178,7 +178,6 @@ def logout_view(request):
     logout(request)
     return redirect('pagina_inicial') 
 
-
 @login_required(login_url='/login')
 def cargar_insumos(request):
     if request.method == 'POST':
