@@ -3,26 +3,43 @@
 
 {% block title %}Gracias por Confirmar su pedido{% endblock %}
 
-
-
 {% block content %}
-<br><br><br>
-    <!-- Mostrar mensajes -->
-    {% if messages %}
-        <h2 class="text-primary">Mensajes</h2>
-        <ul >
-            {% for message in messages %}
-                <li class="{{ message.tags }} text-primary">
-                    {{ message }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <button onclick="cerrarPestana()" class="btn btn-info">Cerrar Pestaña</button>
+<!-- Modal de Bootstrap -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary" id="messageModalLabel">Mensajes</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li class="{{ message.tags }} text-primary">
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button onclick="cerrarPestana()" class="btn btn-info">Cerrar Pestaña</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script>
-        function cerrarPestana() {
-            window.close();
-        }
-    </script>
+<!-- Script para abrir el modal automáticamente -->
+<script>
+    // Esperar a que la página se cargue y luego mostrar el modal
+    document.addEventListener('DOMContentLoaded', function() {
+        var messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
+        messageModal.show();
+    });
+
+    function cerrarPestana() {
+        window.close();
+    }
+</script>
 {% endblock %}

@@ -210,12 +210,14 @@ def reenviar_confirmacion(request, entrega_id):
         'entrega': entrega,
         'confirmacion_url': url,
     })
+    
     plain_message = strip_tags(html_message)
     from_email = 'correo.na@gmail.com'
     to_email = entrega.usuario.email
 
     notificador = Correo('correo.na@gmail.com', 'uoeltvyzagdnobkp', 'smtp.gmail.com', 587)
-    if notificador.enviar([to_email], subject, plain_message, from_email):
+    print(html_message)
+    if notificador.enviar([to_email], subject, html_message, from_email,True):
         messages.success(request, 'Correo de confirmación reenviado exitosamente.')
     else:
         messages.error(request, 'Hubo un problema al reenviar el correo.')
@@ -223,7 +225,7 @@ def reenviar_confirmacion(request, entrega_id):
     notificador.cerrar()
     return redirect('pagina_inicial')
 
-
+@login_required(login_url='/login')
 def reporteria_insumos(request):
     # Filtra los insumos que tienen una cantidad mayor a cero
     insumos = Insumo.objects.filter(cantidad__gt=0)
