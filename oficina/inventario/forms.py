@@ -36,9 +36,9 @@ class CargarInsumoForm(forms.ModelForm):
         model = Insumo
         fields = ['nombre', 'cantidad', 'descripcion']
         widgets = {
-            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-            'cantidad': forms.NumberInput(attrs={'class': 'form-control', 'min': '1'}),
-            'descripcion': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'nombre': forms.TextInput(attrs={'class': 'form-control bg-white text-black'}),
+            'cantidad': forms.NumberInput(attrs={'class': 'form-control bg-white text-black', 'min': '1'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control bg-white text-black', 'rows': 3}),
         }
     def clean_cantidad(self):
         cantidad = self.cleaned_data.get('cantidad')
