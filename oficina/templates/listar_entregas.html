@@ -11,7 +11,7 @@
 <!-- Dropdown para seleccionar el usuario -->
 <form method="get">
     <label for="usuario" class="text-primary">Selecciona un usuario:   </label>
-    <select class="form-select" name="usuario" id="usuario" onchange="this.form.submit()">
+    <select class="form-select js-example-basic-single" name="usuario" id="usuario" onchange="this.form.submit()">
         <option value="">-- Seleccionar usuario --</option>
         {% for usuario in usuarios %}
             <option value="{{ usuario.id }}" {% if usuario_seleccionado == usuario.id|stringformat:"s" %}selected{% endif %}>
@@ -38,4 +38,9 @@
     {% endif %}
 </ul>
 </div>
+<script>
+    $('.js-example-basic-single').select2({
+        placeholder: "Busca usuario",
+    });
+</script>
 {% endblock %}
