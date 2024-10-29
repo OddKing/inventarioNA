@@ -86,6 +86,7 @@ def crear_entrega(request, insumo_id=None):
             print(insumo_id)
             if insumo_id:
                 insumo = Insumo.objects.get(id=insumo_id)
+                #insumo.cantidad=cantidad_solicitada
                 entrega.insumo = insumo
 
                 cantidad_solicitada=form.cleaned_data['cantidad_entregada']
@@ -100,6 +101,7 @@ def crear_entrega(request, insumo_id=None):
                         'usuario': entrega.usuario.first_name,
                         'entrega': entrega,
                         'confirmacion_url': url,
+                        'cantidas':cantidad_solicitada
                     })
                     plain_message = strip_tags(html_message)
                     from_email = 'correo.na@gmail.com'
