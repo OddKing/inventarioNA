@@ -107,7 +107,7 @@ def crear_entrega(request, insumo_id=None):
                     to_email=entrega.usuario.email   
                     #print(url)         
                     notificador = Correo('correo.na@gmail.com', 'uoeltvyzagdnobkp', 'smtp.gmail.com', 587)
-                    if notificador.enviar([to_email], subject, plain_message, from_email):
+                    if notificador.enviar([to_email], subject, html_message, from_email,True):
                         messages.success(request, 'Correo enviado exitosamente.')
                     else:
                         messages.error(request, 'Hubo un problema al enviar el correo.'+' '+host)
@@ -149,22 +149,24 @@ def registrar_devolucion(request, entrega_id):
         cantidad = int(request.POST.get('cantidad'))
         if 0 < cantidad <= entrega.cantidad_entregada:
             # Actualizar la cantidad del insumo y la cantidad de la entrega
+            
+            subject = 'Informe de la devolucion'
+            html_message = render_to_string('correo_devolucion.html', {
+                        'usuario': entrega.usuario.first_name,
+                        'entrega': entrega,
+                        'cantidad': cantidad
+                    })
             insumo.cantidad += cantidad
             insumo.save()
             entrega.cantidad_entregada-= cantidad
             entrega.save()
             messages.success(request, 'Devolución registrada exitosamente.')
-            subject = 'Informe de la devolucion'
-            html_message = render_to_string('correo_devolucion.html', {
-                        'usuario': entrega.usuario.first_name,
-                        'entrega': entrega,
-                    })
             plain_message = strip_tags(html_message)
             from_email = 'correo.na@gmail.com'
             #to_email = 'carlos.campana@nameaction.com'
             to_email=entrega.usuario.email
             notificador = Correo('correo.na@gmail.com', 'uoeltvyzagdnobkp', 'smtp.gmail.com', 587)
-            if notificador.enviar([to_email,'carlos.campana@nameaction.com'], subject, plain_message, from_email):
+            if notificador.enviar([to_email,'carlos.campana@nameaction.com'], subject, html_message, from_email,True):
                 messages.success(request, 'Correo enviado exitosamente.')
             else:
                 messages.error(request, 'Hubo un problema al enviar el correo.')
