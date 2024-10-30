@@ -53,7 +53,7 @@
                 <tr>
                     <td>{{ entrega.insumo.nombre }}</td>
                     <td>{{ entrega.usuario.username }}</td>
-                    <td>{{ entrega.fecha_entrega }}</td>
+                    <td>{{ entrega.fecha_entrega | date:"j F Y" }}</td>
                     <td>{{ entrega.cantidad_entregada }}</td>
                     {% if user.is_authenticated %}
                     <td><form method="POST" action="{% url 'reenviar_confirmacion' entrega.id %}">

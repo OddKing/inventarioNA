@@ -30,12 +30,44 @@
             </tbody>
         </table>
     </div>
+    <br>
+    <div class="table-responsive">
+        <table id="tablaEntregas" class="display table table-striped table-hover" cellspacing="0" width="100%">
+            <thead>
+                <th class="text-primary">Nombre</th>
+                <th class="text-primary">cantidad</th>
+                <th class="text-primary">fecha</th>
+                <th class="text-primary">Entegado a</th>
+                <th class="text-primary"> Confirmado</th>
+            </thead>
+            <tbody>
+                {% for entrega in entregas %}
+                <tr>
+                    <td>{{ entrega.insumo.nombre }}</td>
+                    <td>{{ entrega.cantidad_entregada }}</td>
+                    <td>{{ entrega.fecha_entrega | date:"j F Y" }}</td>
+                    <td>{{ entrega.usuario.username }}</td>
+                    <td>{{ entrega.confirmado }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4" align="center">No hay entregas en realizadas .</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script>
     // Inicializar DataTable
     $(document).ready(function() {
         $('#tablaInsumos').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+            }
+        });
+        $('#tablaEntregas').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
             }
